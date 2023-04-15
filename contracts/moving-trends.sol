@@ -46,9 +46,19 @@ contract MovingTrends {
         return numberOfCampaigns - 1;
     }
 
+    // view function doesn't modify the state but just returns some values
     function getDonators(
         uint256 _id
     ) public view returns (address[] memory, uint256[] memory) {
         return (campaigns[_id].donators, campaigns[_id].donations);
+    }
+
+    function getCampaigns() public view returns (Campaign[] memory) {
+        Campaign[] memory allCampaign = new Campaign[](numberOfCampaigns);
+        for (uint256 idx = 0; idx < numberOfCampaigns; idx++) {
+            Campaign storage item = campaigns[idx];
+            allCampaign[idx] = item;
+        }
+        return allCampaign;
     }
 }
